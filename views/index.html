@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="../../favicon.ico">
+
+	<title>Trip Planner</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="stylesheets/style.css" rel="stylesheet">
+	<!-- Google Maps Api -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWjNyt9k8UtBmW-7MGvCRgqhMAkmla3Kg&sensor=true"></script>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Trip Planner</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>
+	<div class="row">
+		<div class="col-lg-6 ">
+			<div id='dayslist'class="btn-group" role="group" aria-label="...">
+				<button type="button" class="btn btn-default">Day 1</button>
+				<button type="button" class="btn btn-default">Day 2</button>
+				<button type="button" class="btn btn-default">Day 3</button>
+			</div>
+			<button id= "addADay" type="button" class="btn btn-default">+Add Day</button>
+		</div>
+		<div class="col-lg-6 ">
+			<div id ='hotels' class="col-lg-4 ">
+				<h4>Hotels</h4>
+				<!-- Split button -->
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						Hotels <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-hotels" role="menu">
+						{% for hotel in hotels %}
+						<li><a>{{ hotel.name }}</a></li>
+						{% endfor %}
+					</ul>
+					<button type="button" class="put btn btn-primary">Add</button>
+				</div>
+			</div>	
+			<div id= 'things-to-do' class="col-lg-4 ">
+				<h4>Things to do</h4>
+				<!-- Split button -->
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						Things to Do <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-things" role="menu">
+						{% for things_to_do in things_to_do %}
+						<li><a>{{ things_to_do.name }}</a></li>
+						{% endfor %}
+					</ul>
+					<button type="button" class="put btn btn-primary">Add</button>
+				</div>
+			</div>	
+			
+			<div id= 'restaurants' class="col-lg-4 ">
+				<h4>Restaurants</h4>
+				<!-- Split button -->
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						Restaurants <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-restaurants" role="menu">
+						{% for restaurants in restaurants %}
+						<li><a>{{ restaurants.name }}</a></li>
+						{% endfor %}
+					</ul>
+					<button type="button" class="put btn btn-primary">Add</button>
+				</div>
+			</div>	
+		</div>
+		<div class="col-lg-6 ">
+			<div id="this-plan">
+				<h3>Plan for <span id="this-day"><span id="this-title">Day 1</span><button type="button" class="remove btn btn-danger btn-xs">x</button></span></h3>
+				<div id="this-hotel" class="panel panel-default">
+					<div class="panel-heading">Hotel</div>
+					<ul class="list-group clearfix"></ul>
+				</div>
+				<div id="these-things-to-do" class="panel panel-default">
+					<div class="panel-heading">Things To Do</div>
+					<ul class="list-group clearfix"></ul>
+				</div>
+				<div id="these-restaurants" class="panel panel-default">
+					<div class="panel-heading">Restaurants</div>
+					<ul class="list-group clearfix"></ul>
+				</div>
+			</div>	
+		</div>
+		<div class="col-lg-6 ">
+			<div id="map-canvas"></div>
+		</div>
+	</div><!-- /.row -->
+
+</div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+</body>
+<script>
+
+{% autoescape false %}
+var all_hotels = {{ hotels | json }};
+var all_restaurants = {{ restaurants | json }};
+var all_things_to_do = {{ things_to_do | json }};
+{% endautoescape %}
+
+</script>  
+</html>
